@@ -45,12 +45,11 @@ export default function SignUp() {
         body: JSON.stringify(values),
         headers: { "Content-Type": "application/json" },
       });
-      const { error, message } = (await res.json()) as {
-        error: string;
+      const { message, error } = (await res.json()) as {
         message: string;
+        error: string;
       };
       if (res.ok && message) {
-        const { message } = (await res.json()) as { message: string };
         toast.success(message);
         await signIn("credentials", {
           email,
