@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@components/navbar";
 import AuthSession from "@components/AuthSession";
 import Notification from "@components/Notification";
 
@@ -21,7 +20,6 @@ export default function RootLayout({
     <AuthSession>
       <html lang="en">
         <body className={inter.className}>
-          <Navbar />
           {children}
           <Notification />
         </body>

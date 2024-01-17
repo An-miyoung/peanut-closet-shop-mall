@@ -47,7 +47,11 @@ export const authConfig: NextAuthOptions = {
   // credential 이 제공하는 user 정보는 email, name 뿐이어서
   // id, role, avatar, verified 를 전달하려면 이 부분에서 수정
   callbacks: {
-    async jwt({ token }) {
+    async jwt({ token, user }) {
+      // user 를 받아오지 않자 에러가 났다.
+      if (user) {
+        token.user = user;
+      }
       return token;
     },
     async session({ session, token }) {

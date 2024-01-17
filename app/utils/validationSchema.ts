@@ -20,7 +20,7 @@ const commonSchema = {
   category: yup
     .string()
     .required("카테고리는 필수입력입니다.")
-    .oneOf(categories, "유효하지 않은 카테고리"),
+    .oneOf(categories, "유효하지 않은 카테고리항목입니다."),
   quantity: yup
     .number()
     .required("재고수량은 필수입력입니다.")

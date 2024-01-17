@@ -37,7 +37,7 @@ export default function ProfileMenu({ menuItems, avatar }: Props) {
           placeholder=""
           variant="text"
           color="blue-gray"
-          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto no-underline hover:no-underline active:no-underline "
+          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto no-underline hover:no-underline active:no-underline focus:no-underline hover:outline-none active:outline-none focus:outline-transparent"
         >
           <Avatar
             placeholder=""

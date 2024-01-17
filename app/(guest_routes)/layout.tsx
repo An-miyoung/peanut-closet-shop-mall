@@ -14,7 +14,7 @@ export default async function GuestLayout({ children }: Props) {
 
   return (
     <div className="max-w-screen-xl mx-auto lg:p-0 p-4">
-      {/* <Navbar /> */}
+      <Navbar />
       {children}
     </div>
   );
