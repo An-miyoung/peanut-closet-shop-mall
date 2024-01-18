@@ -16,6 +16,7 @@ const fetchProducts = async (
   perPage: number
 ): Promise<Product[]> => {
   const skipCount = (pageNo - 1) * perPage;
+
   await startDb();
   const products = await ProductModel.find()
     // .sort({ createdAt: -1 })

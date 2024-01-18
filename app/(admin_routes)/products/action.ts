@@ -74,6 +74,29 @@ export const updateProduct = async (
   }
 };
 
+export const deleteProduct = async (id: string) => {
+  try {
+    await startDb();
+
+    const product = await ProductModel.findById(id);
+
+    await removeImageFromCloud(product?.thumbnail.id!);
+
+    if (product?.images && product?.images.length !== 0) {
+      const deleteImages = product?.images?.map(async (image) => {
+        await removeImageFromCloud(image.id);
+      });
+      Promise.all(deleteImages);
+    }
+
+    await ProductModel.findByIdAndDelete(id);
+  } catch (error: any) {
+    console.log(error.message);
+    throw new Error("상품삭제에 실패했습니다.");
+  }
+};
+
+// 클라우드에서 이미지 지우기
 export const removeImageFromCloud = async (publicId: string) => {
   try {
     await cloudinary.uploader.destroy(publicId);
@@ -83,6 +106,7 @@ export const removeImageFromCloud = async (publicId: string) => {
   }
 };
 
+// 클라우드에서 지우고, DB 에서 지우기
 export const removeAndUpdateProductImages = async (
   id: string,
   publicId: string
@@ -91,11 +115,11 @@ export const removeAndUpdateProductImages = async (
     const { result } = await cloudinary.uploader.destroy(publicId);
     if (result === "ok") {
       await startDb();
-      // await ProductModel.findByIdAndUpdate(id, {
-      //   $pull: {
-      //     images: { id: publicId },
-      //   },
-      // });
+      await ProductModel.findByIdAndUpdate(id, {
+        $pull: {
+          images: { id: publicId },
+        },
+      });
     }
   } catch (error: any) {
     console.log(error.message);

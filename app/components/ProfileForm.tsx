@@ -3,11 +3,11 @@
 import React, { useState, useTransition } from "react";
 import { Button, Input } from "@material-tailwind/react";
 import { toast } from "react-toastify";
-// import { uplaodImage } from "../utils/cloudinaryUplaodHelper";
 // import { updateUserProfile } from "../(private_route)/profile/action";
 import { UserProfileToUpdate } from "../types";
 import { useRouter } from "next/navigation";
-import ProfileAvatarInput from "./ProfileAvatarInput";
+import ProfileAvatarInput from "@components/ProfileAvatarInput";
+import { uplaodImage } from "@utils/cloudinaryUplaodHelper";
 
 interface Props {
   avatar: string | undefined;
@@ -35,9 +35,9 @@ export default function ProfileForm({ id, name, avatar, email }: Props) {
       name: userName,
     };
 
-    // if (avatarFile) {
-    //   info.avatar = await uplaodImage(avatarFile);
-    // }
+    if (avatarFile) {
+      info.avatar = await uplaodImage(avatarFile);
+    }
 
     // await updateUserProfile(info);
     // router.refresh();

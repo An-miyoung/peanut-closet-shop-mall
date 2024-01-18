@@ -16,6 +16,9 @@ import Link from "next/link";
 import SearchForm from "@components/SearchForm";
 import { Product } from "@app/types";
 import { formatPrice } from "@utils/formatPrice";
+import { DeleteConfirmDialog } from "@components/DeleteConfirmDialog";
+import { useCallback, useEffect, useState } from "react";
+import { deleteProduct } from "../(admin_routes)/products/action";
 
 const TABLE_HEAD = [
   "상품명",
@@ -24,6 +27,7 @@ const TABLE_HEAD = [
   "재고수량",
   "카테고리",
   "수정하기",
+  "삭제하기",
 ];
 
 interface Props {
@@ -35,6 +39,7 @@ interface Props {
 
 export default function ProductTable(props: Props) {
   const router = useRouter();
+  const [toDeletedPID, setToDeletedPID] = useState("");
 
   const {
     products = [],
@@ -52,6 +57,23 @@ export default function ProductTable(props: Props) {
     const nextPage = currentPageNo + 1;
     router.push(`/products?page=${nextPage}`);
   };
+
+  const handleDeleteProduct = useCallback(
+    async (id: string) => {
+      try {
+        const res = await deleteProduct(id);
+        router.refresh();
+      } catch (error: any) {
+        console.log(error.message);
+        throw new Error(error);
+      }
+    },
+    [router]
+  );
+
+  useEffect(() => {
+    if (toDeletedPID !== "") handleDeleteProduct(toDeletedPID);
+  }, [handleDeleteProduct, toDeletedPID]);
 
   return (
     <div className="py-5">
@@ -178,6 +200,12 @@ export default function ProductTable(props: Props) {
                         <PencilIcon className="h-4 w-4" />
                       </IconButton>
                     </Link>
+                  </td>
+                  <td className={classes}>
+                    <DeleteConfirmDialog
+                      id={id}
+                      setToDeletedPID={setToDeletedPID}
+                    />
                   </td>
                 </tr>
               );
