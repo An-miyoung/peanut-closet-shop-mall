@@ -141,7 +141,7 @@ export default function ProductTable(props: Props) {
                           color="blue-gray"
                           className="font-bold"
                         >
-                          {truncate(title, 30)}
+                          {truncate(title, 20)}
                         </Typography>
                       </Link>
                     </div>

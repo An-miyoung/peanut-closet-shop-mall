@@ -16,7 +16,7 @@ export default function SearchForm({ submitTo }: Props) {
       onSubmit={(e) => {
         e.preventDefault();
         if (!query) return;
-        router.push(`${submitTo}${query}`);
+        router.push(`${submitTo}${query}`, { scroll: false });
         setQuery("");
       }}
       className="w-full md:w-72"

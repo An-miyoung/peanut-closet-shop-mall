@@ -39,12 +39,30 @@ export default function BuyingOptions({ wishList }: Props) {
     const res = await fetch("/api/product/cart", {
       method: "POST",
       body: JSON.stringify({ productId, quantity }),
+      headers: { "Content-Type": "application/json" },
     });
 
     const { error } = await res.json();
     if (!res.ok && error) toast.warning(error.message);
 
     router.refresh();
+  };
+
+  const handleCheckout = async () => {
+    const res = await fetch("/api/checkout/instance", {
+      method: "POST",
+      body: JSON.stringify({ productId: productId }),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const { error, url } = await res.json();
+    if (!res.ok) {
+      toast.warning(error);
+      router.refresh();
+    } else {
+      // 결제 url 로 이용
+      router.push(url);
+    }
   };
 
   const updateWishlist = async () => {
@@ -85,6 +103,7 @@ export default function BuyingOptions({ wishList }: Props) {
         color="amber"
         disabled={isPending}
         className="rounded-full"
+        onClick={() => startTransition(async () => await handleCheckout())}
       >
         구매하기
       </Button>

@@ -64,6 +64,7 @@ export default function ProductCard({ product }: Props) {
     const res = await fetch("/api/checkout/instance", {
       method: "POST",
       body: JSON.stringify({ productId: product.id }),
+      headers: { "Content-Type": "application/json" },
     });
 
     const { error, url } = await res.json();
@@ -72,7 +73,6 @@ export default function ProductCard({ product }: Props) {
       router.refresh();
     } else {
       // 결제 url 로 이용
-      // window.location.href = url;
       router.push(url);
     }
   };
