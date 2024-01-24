@@ -79,13 +79,13 @@ export default function BuyingOptions({ wishList }: Props) {
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center">
       <CartCountUpdater
         onDecrement={handleDecrement}
         onIncrement={handleIncrement}
         value={quantity}
       />
-      <div className="flex-1">
+      <div className="flex-1 items-center justify-center">
         <Button
           placeholder=""
           variant="text"

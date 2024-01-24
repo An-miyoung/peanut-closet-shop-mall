@@ -27,7 +27,7 @@ const CartCountUpdater = ({
         onClick={onDecrement}
         variant="text"
       >
-        <MinusIcon className="w-4 h-4" />
+        <MinusIcon className="w-3 h-3 md:w-4 md:h-4" />
       </IconButton>
 
       <span className="text-sm md:text-lg font-medium">{value}</span>
@@ -37,7 +37,7 @@ const CartCountUpdater = ({
         onClick={onIncrement}
         variant="text"
       >
-        <PlusIcon className="w-4 h-4" />
+        <PlusIcon className="w-3 h-3 md:w-4 md:h-4" />
       </IconButton>
     </div>
   );
