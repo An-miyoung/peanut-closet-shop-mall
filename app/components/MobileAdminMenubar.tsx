@@ -29,7 +29,7 @@ export default function MobileAdminMenuBar() {
       <MaterialNav className="mx-auto max-w-screen-xl px-4 py-2" placeholder="">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Link className="font-semibold text-lg text-blue-gray-900" href="/">
-            Next Shop
+            Peanut Closet
           </Link>
           <div className="flex gap-2 items-center justify-between">
             <>

@@ -56,7 +56,7 @@ export default function NavUI({ cartItemsCount, avatar }: Props) {
             href="/"
             className="mr-4 cursor-pointer py-1.5 md:ml-2 font-semibold"
           >
-            Next Shop
+            Peanut Closet
           </Link>
           {/* 큰 화면일 때  */}
           <div className="hidden md:flex gap-2 items-center">

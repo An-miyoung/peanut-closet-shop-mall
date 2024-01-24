@@ -59,12 +59,12 @@ const sendForgetPasswordLink = async (profile: Profile, linkUrl: string) => {
   await client.send({
     from: sender,
     to: recipients,
-    template_uuid: "51c0599e-4632-4fff-b8e3-dae8cfc74ac3",
+    template_uuid: "90f77168-b392-4881-bf12-259f1b3f3465",
     template_variables: {
       subject: "Peanuts-Closet 비밀번호 재설정요청",
-      user_name: profile.name,
       link: linkUrl,
-      btn_title: "비밀번호 재설정",
+      title: "비밀번호를 재설정합니다.",
+      btn_name: "비밀번호 재설정",
     },
   });
 };
@@ -78,7 +78,7 @@ const sendUpdatePasswordConfirmation = async (profile: Profile) => {
   await client.send({
     from: sender,
     to: recipients,
-    template_uuid: "51c0599e-4632-4fff-b8e3-dae8cfc74ac3",
+    template_uuid: "93175a47-b83c-48ed-a47c-490b787cf864",
     template_variables: {
       subject: "Peanuts-Closet 비밀번호 재설정 확인",
       user_name: profile.name,

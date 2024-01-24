@@ -32,7 +32,7 @@ export function MobileNav({ open, onClose, menuItems }: Props) {
       <Drawer placeholder="" open={open} onClose={onClose}>
         <div className="mb-2 flex items-center justify-between p-4 z-50">
           <Typography placeholder="" variant="h5" color="blue-gray">
-            Next Shop
+            Peanut Closet
           </Typography>
           <IconButton
             placeholder=""
