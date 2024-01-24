@@ -29,7 +29,6 @@ export default function WishlistProductCard({ product }: Props) {
     const res = await fetch("/api/product/wishList", {
       method: "POST",
       body: JSON.stringify({ productId: id }),
-      headers: { "Content-Type": "application/json" },
     });
 
     const { error } = await res.json();

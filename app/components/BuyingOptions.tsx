@@ -39,7 +39,6 @@ export default function BuyingOptions({ wishList }: Props) {
     const res = await fetch("/api/product/cart", {
       method: "POST",
       body: JSON.stringify({ productId, quantity }),
-      headers: { "Content-Type": "application/json" },
     });
 
     const { error } = await res.json();
@@ -52,7 +51,6 @@ export default function BuyingOptions({ wishList }: Props) {
     const res = await fetch("/api/checkout/instance", {
       method: "POST",
       body: JSON.stringify({ productId: productId }),
-      headers: { "Content-Type": "application/json" },
     });
 
     const { error, url } = await res.json();
@@ -72,7 +70,6 @@ export default function BuyingOptions({ wishList }: Props) {
     const res = await fetch("/api/product/wishList", {
       method: "POST",
       body: JSON.stringify({ productId }),
-      headers: { "Content-Type": "application/json" },
     });
 
     const { error } = await res.json();

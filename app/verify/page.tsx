@@ -26,7 +26,6 @@ export default function Verify({ searchParams }: Props) {
     fetch(`/api/users/verify`, {
       method: "POST",
       body: JSON.stringify({ token, userId }),
-      headers: { "Content-Type": "application/json" },
     }).then(async (res) => {
       const result = await res.json();
       const { message, error } = result as { message: string; error: string };

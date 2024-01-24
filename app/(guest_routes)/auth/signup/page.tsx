@@ -43,7 +43,6 @@ export default function SignUp() {
       const res = await fetch("/api/users", {
         method: "POST",
         body: JSON.stringify(values),
-        headers: { "Content-Type": "application/json" },
       });
       const { message, error } = (await res.json()) as {
         message: string;

@@ -15,7 +15,6 @@ export default function EmailVerificationBanner({ id, verified }: Props) {
     setSubmitting(true);
     const res = await fetch(`/api/users/verify?userId=${id}`, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
     });
 
     const { message, error } = await res.json();

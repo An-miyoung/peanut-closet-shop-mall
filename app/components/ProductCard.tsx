@@ -65,7 +65,6 @@ export default function ProductCard({ product }: Props) {
     const res = await fetch("/api/checkout/instance", {
       method: "POST",
       body: JSON.stringify({ productId: product.id }),
-      headers: { "Content-Type": "application/json" },
     });
 
     const { error, url } = await res.json();
