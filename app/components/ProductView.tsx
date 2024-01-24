@@ -37,7 +37,7 @@ export default function ProductView({
         <h1 className="md:text-3xl text-xl font-semibold">{title}</h1>
         <p className="opacity-70">{description}</p>
 
-        <div className="pl-4 pb-2 space-y-2 text-sm md:text-base">
+        <div className="pl-4 pb-2 space-y-2 text-sm md:text-base opacity-70">
           {points?.map((point, index) => {
             return <li key={index}>{point}</li>;
           })}

@@ -20,7 +20,7 @@ const settings: Settings = {
   slidesToScroll: 1,
   arrows: false,
   autoplay: false,
-  className: "w-[500px]",
+  className: "w-[400px]",
   responsive: [
     {
       breakpoint: 480,
@@ -53,8 +53,8 @@ export default function ProductImageGallery(props: Props) {
               key={index}
               src={img}
               alt="thumbnail image"
-              width={500}
-              height={500}
+              width={400}
+              height={400}
               priority
               style={{ width: "100vw", height: "500px" }}
               placeholder="blur"
