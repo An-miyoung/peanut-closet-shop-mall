@@ -40,13 +40,13 @@ const sendEmailVerificationLink = async (profile: Profile, linkUrl: string) => {
   await client.send({
     from: sender,
     to: recipients,
-    subject: "Peanuts-Closet 이메일인증요청",
-    text: `<h1 style='text-align:center'>Peanuts-Closet 회원가입을 환영합니다.</h1>
-                  <h2 style='text-align:center'>
-                    <a href="${linkUrl}">여기</a>를 클릭해 이메일 인증을 해주세요.
-                  </h2>
-              `,
-    category: "Email Verification",
+    template_uuid: "51c0599e-4632-4fff-b8e3-dae8cfc74ac3",
+    template_variables: {
+      subject: "Peanuts-Closet 이메일인증요청",
+      user_name: profile.name,
+      link: linkUrl,
+      btn_title: "이메일 인증",
+    },
   });
 };
 
@@ -59,12 +59,13 @@ const sendForgetPasswordLink = async (profile: Profile, linkUrl: string) => {
   await client.send({
     from: sender,
     to: recipients,
-    subject: "Peanuts-Closet 비밀번호 재설정",
-    text: `<h1 style='text-align:center'>Peanuts-Closet 비밀번호를 재설정합니다.</h1>
-      <h2 style='text-align:center'>
-         <a href="${linkUrl}">여기</a>를 클릭해 비밀번호를 재설정 해주세요.
-      </h2>`,
-    category: "Forget Password",
+    template_uuid: "51c0599e-4632-4fff-b8e3-dae8cfc74ac3",
+    template_variables: {
+      subject: "Peanuts-Closet 비밀번호 재설정요청",
+      user_name: profile.name,
+      link: linkUrl,
+      btn_name: "비밀번호 재설정",
+    },
   });
 };
 
@@ -77,14 +78,13 @@ const sendUpdatePasswordConfirmation = async (profile: Profile) => {
   await client.send({
     from: sender,
     to: recipients,
-    subject: "Peanuts-Closet 비밀번호 재설정 확인",
-    text: `<h1 style='text-align:center'>Peanuts-Closet 재설정됐습니다.</h1>
-      <h2 style='text-align:center'>
-         비밀번호가 성공적으로 재설정됐습니다.
-         <a href="${process.env.SIGN_IN_URL}">새 비밀번호로 로그인</a>
-      </h2>
-   `,
-    category: "Reset Password",
+    template_uuid: "51c0599e-4632-4fff-b8e3-dae8cfc74ac3",
+    template_variables: {
+      subject: "Peanuts-Closet 비밀번호 재설정 확인",
+      user_name: profile.name,
+      link: process.env.SIGN_IN_URL!,
+      btn_title: "새 비밀번호로 로그인",
+    },
   });
 };
 

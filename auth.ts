@@ -20,10 +20,9 @@ export const authConfig: NextAuthOptions = {
       // signin/page.tsx 에서 submit 할때 signin("credentials", vales) 를 부르면 authorize 가 실행
       async authorize(credentials, req) {
         const { email, password } = credentials as SigninCredentials;
-        const res = await fetch("http://localhost:3000/api/users/signin", {
+        const res = await fetch(process.env.API_SIGN_IN_ENDPOINT!, {
           method: "POST",
           body: JSON.stringify({ email, password }),
-          headers: { "Content-Type": "application/json" },
         });
         const { user, error } = await res.json();
 
