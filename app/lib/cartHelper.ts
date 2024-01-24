@@ -1,32 +1,26 @@
-import CartItems from "@components/CartItems";
 import startDb from "@lib/db";
 import CartModel from "@models/cartModel";
-import { authConfig } from "@/auth";
-import { getServerSession } from "next-auth";
-import React from "react";
-import UserModel from "@models/userModel";
-import EmptyPage from "@components/EmptyPage";
-import { LogoutAndGoHome } from "@components/404";
+import { Types } from "mongoose";
+import { CartItems } from "@app/types";
 
-const fetchCartProducts = async () => {
-  const session = await getServerSession(authConfig);
-  if (!session?.user) return null;
-
+export const getCartItems = async (
+  userId: string,
+  cartId?: string
+): Promise<CartItems> => {
   await startDb();
-  const user = await UserModel.findOne({ email: session.user.email });
-  if (!user) return null;
 
-  const userId = user.id;
-  // aggregate 한 결과값이 [{}] 형태로 나오기 때문에 분해해서 실제 필요한 내용만 render 하기 위해
+  // aggregate 한 결과값이 array 형태로 나오기 때문에 분해해서 실제 필요한 내용만 render 하기 위해
   const [cartItems] = await CartModel.aggregate([
     {
-      $match: { userId: user._id },
+      $match: {
+        userId: new Types.ObjectId(userId),
+        _id: new Types.ObjectId(cartId),
+      },
     },
     { $unwind: "$items" },
     // productId 로 DB 에서 그 product 를 찾아온다
     {
       $lookup: {
-        // 실제 몽고DB 안에서 DB이름이 복수형태이다. 그래서 product가 모인 DB 이름은 products
         from: "products",
         foreignField: "_id",
         localField: "items.productId",
@@ -76,26 +70,5 @@ const fetchCartProducts = async () => {
       },
     },
   ]);
-  return JSON.stringify(cartItems);
+  return cartItems;
 };
-
-export default async function Cart() {
-  const session = await getServerSession(authConfig);
-  if (!session?.user) return <LogoutAndGoHome />;
-
-  const fetchedData = await fetchCartProducts();
-  const cart = fetchedData && JSON.parse(fetchedData);
-
-  if (!cart) return <EmptyPage title="장바구니" />;
-
-  const { id, products, totalQty, totalPrice } = cart;
-
-  return (
-    <CartItems
-      cartId={id}
-      products={products}
-      totalQty={totalQty}
-      cartTotal={totalPrice}
-    />
-  );
-}

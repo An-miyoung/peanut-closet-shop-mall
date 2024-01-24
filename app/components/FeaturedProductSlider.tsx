@@ -7,6 +7,7 @@ import React from "react";
 import Slider, { Settings } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { rgbDataURL } from "@utils/blurDataUrl";
 
 export interface FeaturedProduct {
   id: string;
@@ -52,6 +53,8 @@ export default function FeaturedProductsSlider({ products }: Props) {
                   alt={title}
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  placeholder="blur"
+                  blurDataURL={rgbDataURL(128, 138, 156)}
                 />
               </div>
               <div className="absolute inset-0 p-5">

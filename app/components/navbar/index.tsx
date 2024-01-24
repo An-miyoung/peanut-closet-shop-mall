@@ -6,7 +6,6 @@ import { fetchUserProfile } from "@fetchData/fetchUserProfile";
 import startDb from "@/app/lib/db";
 import UserModel from "@/app/models/userModel";
 import CartModel from "@/app/models/cartModel";
-import { Types } from "mongoose";
 
 const getCartItemsCount = async () => {
   try {
@@ -21,7 +20,7 @@ const getCartItemsCount = async () => {
     // user.id 는 string 이고 db 에 접근하려면 objectId 여야해서 조작한다.
     const cart = await CartModel.aggregate([
       // user 에 맞는 장바구니를 찾고
-      { $match: { userId: new Types.ObjectId(user.id) } },
+      { $match: { userId: user._id } },
       // items 를 열어서 내용을 뽑아낸다.
       { $unwind: "$items" },
       // id별로 그룹화해서 quantity를 모두 더한후 totalQuantity 라는 필드에 넣어준다.
@@ -34,6 +33,7 @@ const getCartItemsCount = async () => {
     ]);
 
     if (cart.length) {
+      // 결과가 [{_id: ~~~}, {totalQuantity: 9}]라는 형태로 나와서 이 array 의 첫번째요소의 totalQuantity
       return cart[0].totalQuantity;
     } else return 0;
   } catch (error: any) {
@@ -43,8 +43,6 @@ const getCartItemsCount = async () => {
 };
 
 export default async function Navbar() {
-  const session = await getServerSession(authConfig);
-
   const count = await getCartItemsCount();
   const profile = await fetchUserProfile();
 

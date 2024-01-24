@@ -58,7 +58,7 @@ export default function ProductImageGallery(props: Props) {
               priority
               style={{ width: "100vw", height: "500px" }}
               placeholder="blur"
-              blurDataURL={rgbDataURL(237, 181, 6)}
+              blurDataURL={rgbDataURL(128, 138, 156)}
             />
           );
         })}
@@ -77,7 +77,7 @@ export default function ProductImageGallery(props: Props) {
               priority
               style={{ width: "80px", height: "80px" }}
               placeholder="blur"
-              blurDataURL={rgbDataURL(237, 181, 6)}
+              blurDataURL={rgbDataURL(128, 138, 156)}
             />
           );
         })}

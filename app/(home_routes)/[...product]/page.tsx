@@ -1,46 +1,45 @@
 import ProductView from "@components/ProductView";
 import startDb from "@lib/db";
-// import ReviewModel from "@models/reviewModel";
+import ReviewModel from "@models/reviewModel";
 import ProductModel from "@models/productModel";
 import { ObjectId, isValidObjectId } from "mongoose";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
-import UserModel from "@/app/models/userModel";
-// import ReviewsList from "@components/ReviewList";
+import UserModel from "@models/userModel";
+import ReviewsList from "@components/ReviewList";
 import SimilarProductsList from "@components/SimilarProductsList";
-// import { updateOrCreateHistory } from "@models/historyModel";
+import { updateOrCreateHistory } from "@models/historyModel";
 import { getServerSession } from "next-auth";
 import { authConfig } from "@/auth";
-// import WishlistModel from "@/app/models/wishListModel";
+import WishlistModel from "@models/wishListModel";
 
 interface Props {
   params: { product: string[] };
 }
 
 const fetchOneProduct = async (productId: string) => {
+  const session = await getServerSession(authConfig);
+  if (!session?.user) return redirect("/auth/signin");
   if (!isValidObjectId(productId)) return redirect("/404");
+
   await startDb();
   const product = await ProductModel.findById(productId);
   if (!product) return redirect("/404");
 
-  const session = await getServerSession(authConfig);
-  if (!session?.user) return redirect("/auth/signin");
-
-  await startDb();
   const user = await UserModel.findOne({ email: session.user.email });
   if (!user) return redirect("/auth/signin");
 
   const userId = user.id;
   let isWishList = false;
-  // // 방문기록 남기기
-  // await updateOrCreateHistory(userId, product._id.toString());
+  // 방문기록 남기기
+  await updateOrCreateHistory(userId, product._id.toString());
   // // 찜한 내역 가져오기
-  // const wishList = await WishlistModel.findOne({
-  //   user: userId,
-  //   products: product._id.toString(),
-  // });
-  // isWishList = wishList ? true : false;
+  const wishList = await WishlistModel.findOne({
+    user: userId,
+    products: product._id.toString(),
+  });
+  isWishList = wishList ? true : false;
 
   const finalProducts = {
     id: product._id.toString(),
@@ -74,34 +73,34 @@ const fetchSimilarProduct = async (category: string) => {
   }));
 };
 
-// const fetchProductReviews = async (productId: string) => {
-//   await startDb();
-//   const productReviews = await ReviewModel.find({
-//     product: productId,
-//   })
-//     .populate<{
-//       userId: { _id: ObjectId; name: string; avatar?: { url: string } };
-//     }>({
-//       path: "userId",
-//       select: "_id name avatar.url",
-//       model: UserModel,
-//     })
-//     .sort("-createdAt");
+const fetchProductReviews = async (productId: string) => {
+  await startDb();
+  const productReviews = await ReviewModel.find({
+    product: productId,
+  })
+    .populate<{
+      userId: { _id: ObjectId; name: string; avatar?: { url: string } };
+    }>({
+      path: "userId",
+      select: "_id name avatar.url",
+      model: UserModel,
+    })
+    .sort("-createdAt");
 
-//   const finalReviews = productReviews.map((review) => ({
-//     id: review._id.toString(),
-//     rating: review.rating,
-//     comment: review.comment,
-//     date: review.createdAt,
-//     userInfo: {
-//       id: review._id.toString(),
-//       name: review.userId.name,
-//       avatar: review.userId.avatar?.url,
-//     },
-//   }));
+  const finalReviews = productReviews.map((review) => ({
+    id: review._id.toString(),
+    rating: review.rating,
+    comment: review.comment,
+    date: review.createdAt,
+    userInfo: {
+      id: review._id.toString(),
+      name: review.userId.name,
+      avatar: review.userId.avatar?.url,
+    },
+  }));
 
-//   return JSON.stringify(finalReviews);
-// };
+  return JSON.stringify(finalReviews);
+};
 
 export default async function ProductPage({ params }: Props) {
   const { product } = params;
@@ -117,7 +116,7 @@ export default async function ProductPage({ params }: Props) {
 
   const similarProducts = await fetchSimilarProduct(productInfo.category);
 
-  // const reviews = JSON.parse(await fetchProductReviews(productId));
+  const reviews = JSON.parse(await fetchProductReviews(productId));
 
   return (
     <div className="p-4">
@@ -147,7 +146,7 @@ export default async function ProductPage({ params }: Props) {
             <p className=" text-blue-gray-600 ">후기쓰기</p>
           </Link>
         </div>
-        {/* <ReviewsList reviews={reviews} /> */}
+        <ReviewsList reviews={reviews} />
       </div>
     </div>
   );

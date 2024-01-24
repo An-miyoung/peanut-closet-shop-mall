@@ -6,6 +6,7 @@ interface Props {
 }
 
 export default function Rating({ value }: Props) {
+  // 별그림이 5개 render 되니까
   const data = Array(5).fill("");
   const fullStars = Math.floor(value);
   const halfStars = value - fullStars >= 0.1;

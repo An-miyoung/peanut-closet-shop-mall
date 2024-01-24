@@ -33,7 +33,7 @@ export default function SimilarProductsList({ products }: Props) {
               priority
               style={{ width: "80px", height: "80px" }}
               placeholder="blur"
-              blurDataURL={rgbDataURL(237, 181, 6)}
+              blurDataURL={rgbDataURL(128, 138, 156)}
             />
           </div>
           <div className="hidden md:flex md:w-[150px]">
@@ -45,7 +45,7 @@ export default function SimilarProductsList({ products }: Props) {
               priority
               style={{ width: "150px", height: "150px" }}
               placeholder="blur"
-              blurDataURL={rgbDataURL(237, 181, 6)}
+              blurDataURL={rgbDataURL(128, 138, 156)}
             />
           </div>
           <div className="hidden md:block">

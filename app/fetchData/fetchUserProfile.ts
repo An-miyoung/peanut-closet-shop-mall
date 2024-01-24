@@ -11,8 +11,9 @@ export const fetchUserProfile = async () => {
   if (!session.user) return null;
 
   await startDb();
+  const user = await UserModel.findOne({ email: session.user.email });
 
-  if (!isValidObjectId(session.user.id)) {
+  if (!user && !isValidObjectId(session.user.id)) {
     const values = {
       name: session.user.name || "소셜로그인회원",
       email: session.user.email,
@@ -23,32 +24,25 @@ export const fetchUserProfile = async () => {
       socialId: session.user.id,
     };
 
-    const user = await UserModel.findOneAndUpdate(
-      { email: session.user.email },
-      {
-        ...values,
-      },
-      { upsert: true }
-    );
+    const newUser = await UserModel.create({ ...values });
 
-    if (!user) return null;
     return {
-      id: user?._id.toString(),
-      name: user?.name,
-      email: user?.email,
-      avatar: user?.avatar?.url,
-      verified: user?.verified,
-      socialId: user?.socialId,
-    };
-  } else {
-    const user = await UserModel.findById(session.user.id);
-    if (!user) return null;
-    return {
-      id: user?._id.toString(),
-      name: user?.name,
-      email: user?.email,
-      avatar: user?.avatar?.url,
-      verified: user?.verified,
+      id: newUser._id.toString(),
+      name: newUser.name,
+      email: newUser.email,
+      avatar: newUser.avatar?.url,
+      verified: newUser.verified,
+      socialId: newUser.socialId,
     };
   }
+  // app에서 회원가입한 경우
+  else if (user) {
+    return {
+      id: user._id.toString(),
+      name: user.name,
+      email: user.email,
+      avatar: user.avatar?.url,
+      verified: user.verified,
+    };
+  } else if (!user) return null;
 };

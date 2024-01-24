@@ -26,6 +26,31 @@ export const PageNotFound = () => {
   );
 };
 
+export const LogoutAndGoHome = () => {
+  return (
+    <div className="w-full flex flex-col items-center justify-center p-3 md:p-10">
+      <h2 className=" text-xl mb-6  text-blue-gray-600">
+        지금은 로그아웃된 상태입니다.
+      </h2>
+      <h4 className=" font-medium text-base mb-5  text-blue-gray-500">
+        장바구니는 로그인한 상태에서만 볼 수 있습니다.
+      </h4>
+
+      <div className="w-full md:w-1/3 flex items-center justify-between mt-3">
+        <Link href="/" className="font-semibold  text-green-900 underline">
+          쇼핑몰 로 이동
+        </Link>
+        <Link
+          href="/auth/signup"
+          className=" font-semibold  text-blue-900 underline"
+        >
+          로그인 으로 이동
+        </Link>
+      </div>
+    </div>
+  );
+};
+
 export const SearchProductNotFound = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center p-3 md:p-10">

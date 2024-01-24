@@ -23,6 +23,7 @@ import { UpdateFeaturedProduct } from "@app/types";
 import { useRouter } from "next/navigation";
 import { removeImageFromCloud } from "@app/(admin_routes)/products/action";
 import { extractPublicId } from "@utils/extractPublicIdHelper";
+import { rgbDataURL } from "@utils/blurDataUrl";
 
 export interface FeaturedProduct {
   file?: File;
@@ -154,6 +155,8 @@ export default function FeaturedProductForm({ initialValue }: Props) {
               src={poster || initialValue?.banner}
               fill
               priority
+              placeholder="blur"
+              blurDataURL={rgbDataURL(128, 138, 156)}
             />
           ) : (
             <>

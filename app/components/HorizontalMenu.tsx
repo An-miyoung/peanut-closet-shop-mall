@@ -44,7 +44,7 @@ function RightArrow() {
 export default function HorizontalMenu({ title, children }: Props) {
   return (
     <div>
-      <p className=" text-xs text-blue-gray-500 pl-10">{`${title} : `}</p>
+      <p className=" text-xs text-blue-gray-500 pl-10">{`${title}`}</p>
       <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
         {children}
       </ScrollMenu>

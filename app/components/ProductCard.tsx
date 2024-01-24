@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import { useTransition } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import Rating from "./Rating";
+import { rgbDataURL } from "@utils/blurDataUrl";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -73,7 +74,7 @@ export default function ProductCard({ product }: Props) {
       router.refresh();
     } else {
       // 결제 url 로 이용
-      router.push(url);
+      window.location.href = url;
     }
   };
 
@@ -96,6 +97,8 @@ export default function ProductCard({ product }: Props) {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority
+            placeholder="blur"
+            blurDataURL={rgbDataURL(128, 138, 156)}
           />
           <div className="absolute right-0 p-2">
             <Chip color="red" value={`${product.sale}% 할인`} />

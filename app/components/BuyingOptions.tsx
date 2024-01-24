@@ -6,7 +6,7 @@ import CartCountUpdater from "@components/CartCountUpdater";
 import { useParams, useRouter } from "next/navigation";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
-// import { Wishlist } from "@ui/WishList";
+import { Wishlist } from "@ui/WishList";
 
 interface Props {
   wishList?: boolean;
@@ -61,7 +61,7 @@ export default function BuyingOptions({ wishList }: Props) {
       router.refresh();
     } else {
       // 결제 url 로 이용
-      router.push(url);
+      window.location.href = url;
     }
   };
 
@@ -72,6 +72,7 @@ export default function BuyingOptions({ wishList }: Props) {
     const res = await fetch("/api/product/wishList", {
       method: "POST",
       body: JSON.stringify({ productId }),
+      headers: { "Content-Type": "application/json" },
     });
 
     const { error } = await res.json();
@@ -107,7 +108,7 @@ export default function BuyingOptions({ wishList }: Props) {
       >
         구매하기
       </Button>
-      {/* <Button
+      <Button
         placeholder=""
         variant="text"
         disabled={isPending}
@@ -116,7 +117,7 @@ export default function BuyingOptions({ wishList }: Props) {
         }}
       >
         <Wishlist isActive={wishList} />
-      </Button> */}
+      </Button>
     </div>
   );
 }

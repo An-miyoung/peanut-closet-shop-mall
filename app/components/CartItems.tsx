@@ -65,8 +65,7 @@ const CartItems: React.FC<CartItemsProps> = ({
       router.refresh();
     } else {
       // 결제 url 로 이용
-      // window.location.href = url;
-      router.push(url);
+      window.location.href = url;
     }
     setBusy(false);
   };
@@ -88,7 +87,7 @@ const CartItems: React.FC<CartItemsProps> = ({
                     priority
                     style={{ width: "50px", height: "50px" }}
                     placeholder="blur"
-                    blurDataURL={rgbDataURL(237, 181, 6)}
+                    blurDataURL={rgbDataURL(128, 138, 156)}
                   />
                 </td>
                 <td className="py-4 ">{product.title}</td>
@@ -153,7 +152,7 @@ const CartItems: React.FC<CartItemsProps> = ({
                 priority
                 style={{ width: "40px", height: "40px" }}
                 placeholder="blur"
-                blurDataURL={rgbDataURL(237, 181, 6)}
+                blurDataURL={rgbDataURL(128, 138, 156)}
               />
               <div>
                 <div className="text-base font-semibold">
