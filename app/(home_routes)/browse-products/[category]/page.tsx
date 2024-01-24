@@ -58,7 +58,9 @@ export default async function ProductByCategory({ params }: Props) {
     <>
       <StickySearch />
       <div className="py-4 space-y-4">
-        <CategoryMenu />
+        <div className="hidden md:block">
+          <CategoryMenu />
+        </div>
         {products.length ? (
           <GridView>
             {products.map((product: FetchedProduct) => (

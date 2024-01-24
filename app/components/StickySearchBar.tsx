@@ -92,11 +92,11 @@ export default function StickySearch() {
   const query = searchParams.get("query");
 
   return (
-    <Navbar placeholder="" className="sticky top-0 z-10 mx-auto md:hidden">
+    <div className="p-5 sticky top-0 z-10 mx-auto md:hidden bg-white bg-opacity-90">
       <div className="flex-row items-center justify-start text-blue-gray-900">
         <SearchForm submitTo="/search-products?query=" />
         <NavList />
       </div>
-    </Navbar>
+    </div>
   );
 }
