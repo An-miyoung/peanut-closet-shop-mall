@@ -35,7 +35,7 @@ export default function ProductView({
 
       <div className="flex-1 md:space-y-4 space-y-2">
         <h1 className="md:text-3xl text-xl font-semibold">{title}</h1>
-        <p>{description}</p>
+        <p className="opacity-70">{description}</p>
 
         <div className="pl-4 pb-2 space-y-2 text-sm md:text-base">
           {points?.map((point, index) => {
@@ -52,13 +52,13 @@ export default function ProductView({
         </div>
 
         <div className="flex items-center space-x-2 mb-2">
-          <p className="line-through text-base text-gray-600">
+          <p className="line-through text-sm md:text-base text-gray-600">
             {`${price.base.toLocaleString()}원`}
           </p>
           <p className="font-bold uppercase whitespace-nowrap select-none bg-deep-orange-500 text-white py-1.5 px-3 text-xs rounded-lg">
             {`${sale}% 할인`}
           </p>
-          <p className=" font-semibold text-xl">
+          <p className=" font-semibold text-lg md:text-xl text-blue-gray-800">
             {`${price.discounted.toLocaleString()}원`}
           </p>
         </div>

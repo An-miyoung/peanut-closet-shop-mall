@@ -79,32 +79,33 @@ export default function BuyingOptions({ wishList }: Props) {
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center justify-between space-x-2">
       <CartCountUpdater
         onDecrement={handleDecrement}
         onIncrement={handleIncrement}
         value={quantity}
       />
-
-      <Button
-        placeholder=""
-        variant="text"
-        disabled={isPending}
-        onClick={() => {
-          startTransition(async () => await addToCart());
-        }}
-      >
-        장바구니
-      </Button>
-      <Button
-        placeholder=""
-        color="amber"
-        disabled={isPending}
-        className="rounded-full"
-        onClick={() => startTransition(async () => await handleCheckout())}
-      >
-        구매하기
-      </Button>
+      <div className="flex-1 pl-3">
+        <Button
+          placeholder=""
+          variant="text"
+          disabled={isPending}
+          onClick={() => {
+            startTransition(async () => await addToCart());
+          }}
+        >
+          장바구니
+        </Button>
+        <Button
+          placeholder=""
+          color="amber"
+          disabled={isPending}
+          className="rounded-full"
+          onClick={() => startTransition(async () => await handleCheckout())}
+        >
+          구매하기
+        </Button>
+      </div>
       <Button
         placeholder=""
         variant="text"

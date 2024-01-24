@@ -27,7 +27,7 @@ const settings: Settings = {
       settings: {
         dots: true,
         adaptiveHeight: true,
-        className: "w-[300px]",
+        className: "w-[250px]",
       },
     },
   ],

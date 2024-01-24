@@ -34,7 +34,9 @@ export default function ReviewsList({ reviews }: Props) {
                 avatar={review.userInfo.avatar}
               />
               <div>
-                <p className="font-semibold">{review.userInfo.name}</p>
+                <p className="text-sm md:text-base font-semibold">
+                  {review.userInfo.name}
+                </p>
                 <p className="text-xs">
                   {dateFormat(review.date, "yyyy-mm-dd")}
                 </p>
@@ -42,7 +44,7 @@ export default function ReviewsList({ reviews }: Props) {
             </div>
             <div>
               <ReviewStars rating={review.rating} />
-              <p>{review.comment}</p>
+              <p className="text-sm md:text-base">{review.comment}</p>
             </div>
           </div>
         );

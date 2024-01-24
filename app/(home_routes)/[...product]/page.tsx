@@ -132,18 +132,18 @@ export default async function ProductPage({ params }: Props) {
         isWishList={productInfo.isWishList}
       />
       <div>
-        <h1 className="text-lg text-blue-gray-600 font-semibold mb-2">
+        <h1 className="text-sm md:text-lg text-blue-gray-600 font-semibold mt-5 mb-2">
           관심있을만한 상품
         </h1>
         <SimilarProductsList products={similarProducts} />
       </div>
-      <div className="py-4 space-y-1">
+      <div className="mt-5 py-4 space-y-1">
         <div className="flex justify-between items-center ">
-          <h1 className="text-lg text-blue-gray-600 font-semibold mb-2">
+          <h1 className="text-sm md:text-lg text-blue-gray-600 font-semibold mb-2">
             상품후기
           </h1>
           <Link href={`/add-review/${productInfo.id}`}>
-            <p className=" text-blue-gray-600 ">후기쓰기</p>
+            <p className="text-sm md:text-lg text-blue-gray-600 ">후기쓰기</p>
           </Link>
         </div>
         <ReviewsList reviews={reviews} />
