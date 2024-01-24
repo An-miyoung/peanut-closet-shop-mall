@@ -7,8 +7,8 @@ import OrderModel from "@models/orderModel";
 import { CartProduct, stripeCustomer } from "@app/types";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import ProductModel from "@/app/models/productModel";
-import CartModel from "@/app/models/cartModel";
+import ProductModel from "@models/productModel";
+import CartModel from "@models/cartModel";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-10-16",

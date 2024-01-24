@@ -64,7 +64,7 @@ const sendForgetPasswordLink = async (profile: Profile, linkUrl: string) => {
       subject: "Peanuts-Closet 비밀번호 재설정요청",
       user_name: profile.name,
       link: linkUrl,
-      btn_name: "비밀번호 재설정",
+      btn_title: "비밀번호 재설정",
     },
   });
 };
